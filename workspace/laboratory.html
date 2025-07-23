@@ -1,0 +1,50 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ATOM-laboratory</title>
+    <link rel="shortcut icon" href="../logo/image.ico" type="image/x-icon">
+    <link rel="stylesheet" href="../style/laboratory.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+<body>
+    <div class="body">
+        <div class="navbar">
+            <ul>
+                <li>
+                    <img src="../logo/image.png" alt="Logo">
+                    <span id="myname"></span>
+                </li>
+                <li>
+                    <label for="search">Search:</label>
+                    <input onkeyup="search_patient()" type="search" id="search" name="search">
+                </li>
+                <li><button onclick="logout()">Logout</button></li>
+            </ul>
+        </div>
+        <h2>Patient List</h2>
+        <div class="content">
+            
+            <table>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Age</th>
+                    <th>Gender</th>
+                    <th>Diagnosis</th>
+                    <th>Doctor</th>
+                    <th>Action</th>
+                </tr>
+                <tbody id="patient_table">
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <script src="../js/laboratory.js"></script>
+    <script src="../js/password.js"></script>
+    <script src="../js/logout.js"></script>
+</body>
+</html>

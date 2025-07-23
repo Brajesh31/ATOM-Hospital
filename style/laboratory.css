@@ -1,0 +1,129 @@
+:root {
+    --primary-color: #2e8b57; /* Sea green */
+    --secondary-color: #3cb371; /* Medium sea green */
+    --background-color: #fff; /* White background */
+    --navbar-color: #333; /* Dark gray navbar */
+    --text-color: #333;
+    --hover-color: #256d47; /* Darker green */
+    --shadow-color: rgba(0, 0, 0, 0.1);
+    --font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+body{
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100dvh;
+}
+.body{
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100dvh;
+}
+.navbar {
+    background-color: var(--navbar-color);
+    color: #fff;
+    height: 60px;
+    display: flex;
+    width: 100%;
+    border-radius: 0 0 20px 20px;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 6px var(--shadow-color);
+}
+.navbar ul {
+    display: flex;
+    flex-direction: row;
+    width: 95%;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0;
+    margin: 0;
+}
+.navbar ul li:first-child{
+    justify-content: center;
+    gap: 20px;
+}
+
+.navbar li {
+    list-style: none;
+    display: flex;
+    align-items: center;
+}
+
+.navbar li img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    border: 2px solid #fff;
+}
+.navbar li label {
+    color: #fff;
+    margin-right: 10px;
+}
+
+.navbar li input[type="search"] {
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 100%;
+}
+
+.navbar button {
+    background-color: var(--secondary-color);
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+span {
+    display: block;
+    margin-bottom: 10px;
+    font-size: 1.2rem;
+    color: var(--primary-color);
+    font-weight: bold;
+    cursor: pointer;
+}
+.navbar button:hover {
+    background-color: var(--hover-color);
+}
+.content{
+    width: 100%;
+    background-color: var(--background-color);
+    border-radius: 10px;
+    box-shadow: 0 4px 6px var(--shadow-color);
+}
+h2{
+    text-align: center;
+}
+.content table{
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+    margin: auto;
+}
+tr th, td{
+    padding: 15px;
+    text-align: center;
+    border-bottom: 1px solid #ddd;
+}
+td button{
+    padding: 5px 5px;
+    background-color: #4CAF50;
+    width: 80%;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin: 5px;
+}
+table button:hover {
+    background-color: #45a049;
+}
+th {
+    background-color: #f9f9f9;
+    color: rgb(0, 0, 0);
+}

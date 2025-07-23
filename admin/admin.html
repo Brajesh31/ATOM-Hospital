@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manager Page</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+
+    <link rel="stylesheet" href="style.css">
+    <link rel="shortcut icon" href="../logo/image.ico" type="image/x-icon">
+</head>
+<body>
+    <div class="body">
+        <div class="container">
+            <img src="../logo/image.png" alt="">
+            <ul class="navbar">
+                <li><img src="../logo/photo-512.png" alt=""></li>
+                <li id="home-a"><a href="#Home">Home</a></li>
+                <li id="users_list-a"><a href="#Users_List">Manage Users</a></li>
+                <li id="add_user-a"><a href="#addUserForm">Add User</a></li>
+                <li id="search-a"><a href="#searchForm">Search Form</a></li>
+                <li id="doctor_assist-a"><a href="#doctorAssist">Doctor assist</a></li>
+                <li id="patients-a"><a href="#pation">Patients</a></li>
+                <li id="archive-a"><a href="#archive">Archive</a></li>
+            </ul>
+            <button onclick="logout()">Logout</button>
+        </div>
+
+        <div class="cont">
+
+            <div class="home" id="home">
+                <h1>Welcome to the Admin Panel</h1>
+                <p>Here you can manage users, add new users, search for users, and manage patients.</p>
+
+                <div class="chart">
+                    <canvas id="employees" style="width:100%;max-width:900px;margin:20px auto; max-height: 480px;"></canvas>
+                    <div class="chart-container-pie" style="display:flex;justify-content:space-around;flex-wrap:wrap;gap:20px;">
+                        <div class="pie-chart">
+                            <canvas id="patients" style="width:100%; max-width:500px;"></canvas>
+                        </div>
+                        <div class="pie-chart">
+                            <canvas id="statu" style="width:100%; max-width:500px;"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="addUserForm">
+                <h1>Admin Panel</h1>
+                <form id="addUserForm" method="POST" action="admin.php">
+
+                    <input type="text" name="name" id="name" placeholder="Name" required>
+                    <input type="password" name="password" id="password" placeholder="Password" required>
+                    <select name="status" id="status">
+                        <option value="Active">Active</option>
+                        <option value="Inactive">Inactive</option>
+                    </select>
+                    <select name="role" id="role">
+                        <option value="Doctor">Doctor</option>
+                        <option value="Doctor_assist">Doctor assist</option>
+                        <option value="Nurse">Nurse</option>
+                        <option value="laboratory">laboratory</option>
+                        <option value="receptionist">Receptionist</option>
+                        <option value="Admin">Admin</option>
+                    </select>
+                    <button type="submit">Add User</button>
+                </form>
+            </div>
+
+            <div class="searchForm">
+                <h2>Search Panel</h2>
+                <form id="searchForm" method="POST" action="admin.php">
+                    <input type="text" name="name" id="searchName" placeholder="Search by Name">
+                    <select name="status" id="searchStatus">
+                        <option value="">All Statuses</option>
+                        <option value="Active">Active</option>
+                        <option value="Inactive">Inactive</option>
+                    </select>
+                    <select name="role" id="searchRole">
+                        <option value="">All Roles</option>
+                        <option value="Doctor">Doctor</option>
+                        <option value="Doctor_assist">Doctor assist</option>
+                        <option value="Nurse">Nurse</option>
+                        <option value="laboratory">laboratory</option>
+                        <option value="receptionist">Receptionist</option>
+                        <option value="Admin">Admin</option>
+                    </select>
+                    <button type="submit">Search</button>
+                </form>
+
+                <table class="uptodate">
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Status</th>
+                        <th>Role</th>
+                        <th>Password</th>
+                        <th>Actions</th>
+                    </tr>
+                    <tbody id="searchResult">
+                        
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="Users_List" id="Users_List">
+                <h3>Users List</h3>
+                <table>
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Status</th>
+                        <th>Role</th>
+                        <th>Password</th>
+                        <th>Actions</th>
+                    </tr>
+                    <tbody id="UsersList">
+
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="pation" id="pation">
+                <h3>Patient List</h3>
+                <table>
+                    <tr>
+                        <th>Patient Name</th>
+                        <th>Age</th>
+                        <th>Gender</th>
+                        <th>Condition</th>
+                        <th>Phone Number</th>
+                        <th>Doctor Name</th>
+                        <th>Created At</th>
+                        <th>Room</th>
+                        <th>Actions</th>
+                    </tr>
+                    <tbody id="pationTable">
+                        
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="doctorAssist" id="doctorAssist">
+                <h2>Doctor Assist</h2>
+                <form action="admin.php" method="post" id="addassist">
+                    <input type="hidden" name="csrf_token" value="<?php echo htmlspecialchars($_SESSION['csrf_token']); ?>">
+                    <select name="Doctor_name" id="Doctor_name">
+                    </select>
+                    <select name="assist_name" id="assist_name">
+                    </select>
+                    <button>Add the assist</button>
+                </form>
+                <h3>Doctor Assist List</h3>
+                <table>
+                    <tr>
+                        <th>Doctor Name</th>
+                        <th>Assist Name</th>
+                        <th>Actions</th>
+                    </tr>
+                    <tbody id="assistTable">
+                        
+                    </tbody>
+                </table>
+                </table>
+            </div>
+
+            <div class="archive" id="archive">
+                <h2>Archive</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>patient Name</th>
+                            <th>Age</th>
+                            <th>Gender</th>
+                            <th>Condition</th>
+                            <th>Phone Number</th>
+                            <th>Doctor Name</th>
+                            <th>Created At</th>
+                            <th>Room</th>
+                            <th>End At</th>
+                            <th>Statu</th>
+                        </tr>
+                    </thead>
+                    <tbody id="archiveTable">
+                        
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <script src="chart.js"></script>
+    <script src="admin.js"></script>
+    <script src="../js/logout.js"></script>
+    <script src="../js/password.js"></script>
+</body>
+</html>

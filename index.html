@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="logo/Untitled_design-removebg-preview.ico" type="image/x-icon">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <title>Atom Hospital</title>
+    <style>
+        :root{
+            --fade:fade_in 1s ease-out;
+            --pos:translateY(20px);
+        }
+        body {
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            width: 100%;
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            width: 100%;
+            max-width: 400px;
+            height: auto;
+            background-color: #fff;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .load {
+            display: none;
+            font-size: 20px;
+            color: #555;
+        }
+        h2, h3 {
+            margin: 5px;
+            font-size: 2rem;
+            color: #333;
+            animation: var(--fade);
+        }
+        form {
+            width: 100%;
+            margin-top: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        input {
+            width: 100%;
+            height: 30px;
+            margin: 10px 0;
+            padding: 5px;
+            border: 1px solid #000;
+            border-width: 0 0 4px 0;
+            font-size: 1.2rem;
+            transition: border-color 0.3s, box-shadow 0.3s;
+            animation: var(--fade);
+            transition: transform 0.3s;
+            transform: translateY(0px);
+        }
+        input:hover {
+            border-color: #555;
+            transform: translateY(-5px);
+        }
+        input:focus {
+            box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+            transform: translateY(-5px);
+        }
+        button {
+            width: 100%;
+            height: 40px;
+            margin-top: 20px;
+            border: none;
+            border-radius: 5px;
+            background-color: #007BFF;
+            color: #fff;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            animation: var(--fade);
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        button:active{
+            background-color: #002750;
+        }
+        @keyframes float_up {
+            0% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+            100% {
+                transform: translateY(0);
+            }
+        }
+        @keyframes fade_in {
+            0% {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0px);
+            }
+        }
+        img {
+            transform: var(--pos);
+            animation: var(--fade), float_up 3s infinite 1s ease-in-out;
+        }
+        i{
+            font-size: 30px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <img src="logo/Untitled_design-removebg-preview.png" alt="logo" width="200px">
+        <h2>ATOM</h2>
+        <h3>HOSPITAL</h3>
+        <form id="loginForm">
+            <label for="name" style="display:none;">Name</label>
+            <input type="text" id="name" name="name" placeholder="Name" required autofocus>
+            <label for="password" style="display:none;">Password</label>
+            <input type="password" id="password" name="password" placeholder="Password" required>
+            <button type="submit">Login</button>
+        </form>
+        <div class="load" id="loading">
+            <i id="chacker" class="fa fa-spinner fa-spin" style="font-size: 40px;"></i>
+
+        </div>
+    </div>
+
+    <script>
+        //fa fa-check
+        document.getElementById('loginForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            document.getElementById('loginForm').style.display = 'none';
+            document.getElementById('loading').style.display = 'block';
+            $.post("bridge/login.php",
+            {
+                name: $("#name").val(),
+                password: $("#password").val()
+            },
+            function(data){
+                try{
+                    data = JSON.parse(data);
+                }catch(e){
+                    console.log(e);
+                    data = data;
+                }
+                if(data.password === $("#password").val()) {
+                    $("#chacker").css("color", "#28a745").attr("class", "fa fa-check");
+                    delete data.password;
+                    localStorage.setItem("token",JSON.stringify(data))
+                    setTimeout(() => {
+                        window.location.href = data.dir;
+                    }, 2000);
+                }else if(data === "Invalid username or password."){
+                    $("#chacker").css("color", "#dc3545").attr("class", "fa fa-close");
+                } 
+                else if(data === "account_inactive") {
+                    $("#chacker").css("color", "#dc3545").attr("class", "fa fa-close");
+                    setTimeout(() => {
+                        alert("Your account is inactive. Please contact the hospital administrator.");
+                    }, 500);
+                    
+                }
+                else { 
+                    $("#chacker").css("color", "#dc3545").attr("class", "fa fa-close");
+                }
+            }
+        ).fail(function() {
+            alert("Error connecting to the server!");
+        });
+      });
+    </script>
+</body>
+</html>

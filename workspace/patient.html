@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ATOM-patient</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel="shortcut icon" href="../logo/image.ico" type="image/x-icon">
+    <link rel="stylesheet" href="../style/patient.css">
+    
+</head>
+<body>
+    <div class="body">
+        <div class="navbar">
+            <ul>
+                <li><span id="myname"></span></li>
+                <li><img src="../logo/image.png" alt=""></li>
+                <li>
+                    <button onclick="logout()">logout</button>
+                </li>
+            </ul>
+        </div>
+        <div class="cont">
+            <ul>
+                <li id="all_patient" onclick="patient()"><span>Patient</span></li>
+                <li id="my_patient" onclick="my_patients()"><span>Mypatient</span></li>
+            </ul>
+
+            <div class="patient">
+                <table>
+                    
+                    <!-- Table content goes here -->
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>Age</th>
+                            <th>Gender</th>
+                            <th>Condition</th>
+                            <th>Doctor Name</th>
+                            <th>Created At</th>
+                            <th>Room</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="patient">
+                        
+                    </tbody>
+                </table>
+            </div>
+            <div class="mypatient">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>Age</th>
+                            <th>Gender</th>
+                            <th>Condition</th>
+                            <th>Created At</th>
+                            <th>Room</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="mypatient">
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <script src="../js/logout.js"></script>
+    <script src="../js/patient.js"></script>
+    <script src="../js/password.js"></script>
+</body>
+</html>

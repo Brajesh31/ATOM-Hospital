@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ATOM-patient</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel="shortcut icon" href="../logo/image.ico" type="image/x-icon">
+    <link rel="stylesheet" href="../style/assistpatient.css">
+</head>
+<body>
+    <div class="body">
+        <div class="navbar">
+            <img src="../logo/image.png" alt="">
+            <ul>
+                <li><span id="myname"></span></li>
+                
+                <li>
+                    <button onclick="logout()">logout</button>
+                </li>
+            </ul>
+        </div>
+        <div class="cont">
+            <div id="data-show">
+                <h2>Assist Patient</h2>
+                <div class="patient-table">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Name</th>
+                                <th>Age</th>
+                                <th>Gender</th>
+                                <th>Condition</th>
+                                <th>Created At</th>
+                                <th>Room</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="patient-data">
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <script src="../js/logout.js"></script>
+    <script src="../js/assistpatient.js"></script>
+    <script src="../js/password.js"></script>
+</body>
+</html>

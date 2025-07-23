@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ATOM Receptionist</title>
+    <link rel="stylesheet" href="../style/registration.css">
+    <link rel="shortcut icon" href="../logo/image.ico" type="image/x-icon">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    
+    <div class="body">
+        <div class="navbar">
+            <img class="img" src="../logo/image.png" alt="">
+            <ul>
+                <li><img src="../logo/photo-512.png" alt=""></li>
+                <li><a href="#Add">Add patient</a></li>
+                <li><a href="#Search">Search</a></li>
+                <li><a href="#archive">archive</a></li>
+            </ul>
+            <button onclick="logout()">logout</button>
+        </div>
+
+        <div class="container">
+            <div class="form" id="Add">
+                <h2>patient Registration</h2>
+                <form id="adduser" method="post">
+                    <input type="hidden" name="action" id="action" value="add">
+                    <input type="text" name="patient_name" id="patient_name" placeholder="patient Name" required>
+                    <input type="number" name="patient_age" id="patient_age" placeholder="patient Age" required>
+                    <select name="patient_gender" id="patient_gender" required>
+                        <option value="" disabled selected>Select Gender</option>
+                        <option value="Male">Male</option>
+                        <option value="Female">Female</option>
+                    </select>
+                    <input type="text" name="phone_number" id="phone_number" placeholder="patient Phone Number">
+                    <input type="text" name="condition" id="condition" placeholder="Condition/Disease">
+                    <input type="number" name="room" id="room" placeholder="Room">
+                    <input type="text" name="doctor_name" id="doctor_name" placeholder="Doctor Name">
+                    <button type="submit">Register</button>
+                </form>
+
+            </div>
+
+            <div class="list">
+                <h3>Registered patients</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>patient Name</th>
+                            <th>Age</th>
+                            <th>Gender</th>
+                            <th>Condition</th>
+                            <th>Phone Number</th>
+                            <th>Doctor Name</th>
+                            <th>Created At</th>
+                            <th>Room</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tbody">
+                        
+                    </tbody>
+                </table>
+            </div>
+            <div class="Search" id="Search">
+                <h2>Search patient</h2>
+                <form id="search-form">
+                    <input type="text" id="search-input" placeholder="Search by patient Name">
+                    <input type="number" id="search-room" placeholder="Room">
+                    <input type="text" id="search-doctor" placeholder="Doctor Name">
+                    <button type="submit" id="search">Search</button>
+                </form>
+                <div id="search-results">
+                    <h3>Search Results</h3>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>patient Name</th>
+                                <th>Age</th>
+                                <th>Gender</th>
+                                <th>Condition</th>
+                                <th>Phone Number</th>
+                                <th>Doctor Name</th>
+                                <th>Created At</th>
+                                <th>Room</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="search-results-table">
+                            
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="archive">
+                <h3>Archive</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>patient Name</th>
+                            <th>Age</th>
+                            <th>Gender</th>
+                            <th>Condition</th>
+                            <th>Phone Number</th>
+                            <th>Doctor Name</th>
+                            <th>Created At</th>
+                            <th>Room</th>
+                            <th>End At</th>
+                            <th>Statu</th>
+                        </tr>
+                    </thead>
+                    <tbody id="archive">
+                        
+                    </tbody>
+                </table>
+            </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <script src="../js/password.js"></script>
+    <script src="../js/receptionist.js"></script>
+    <script src="../js/logout.js"></script>
+</body>
+</html>
