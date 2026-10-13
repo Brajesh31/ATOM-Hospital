@@ -1,0 +1,14 @@
+# Local PHP/server configuration
+.env
+*.local.php
+
+# Runtime and generated uploads
+uploads/
+medical/uploads/
+*.log
+
+# OS and editor state
+.DS_Store
+Thumbs.db
+.idea/workspace.xml
+.idea/usage.statistics.xml
