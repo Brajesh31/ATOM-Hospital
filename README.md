@@ -1,74 +1,64 @@
-<div align="center">
-  <img src="logo/image.png" alt="Atom-hospital" width="250" height="250">
-  <h1>Atom Hospital Website</h1>
-</div>
+# ATOM Hospital
 
-## Overview
-Atom Hospital is a web-based hospital management system designed to streamline patient management, staff coordination, and administrative tasks. The system provides interfaces for various roles including doctors, nurses, laboratory staff, receptionists, assistants, and administrators.
+ATOM Hospital is a browser-based hospital-management prototype built with HTML, CSS, JavaScript, PHP, and SQLite. It provides separate workspaces for administrators, doctors, doctor assistants, nurses, receptionists, and laboratory staff.
+
+> **Prototype warning:** This application is not production-ready. The current authentication flow exposes plaintext credentials, includes a hardcoded `admin`/`admin` fallback, stores a client-side token in `localStorage`, and does not consistently enforce server-side authorization. Do not use real patient or staff data.
 
 ## Features
-- **User Authentication**: Secure login system with role-based access control.
-- **Admin Panel**: Manage users, add/search users, and manage patients.
-- **Patient Management**: Register, search, update, and archive patient records.
-- **Role-based Interfaces**: Custom dashboards for Admin, Doctor, Nurse, Laboratory, Receptionist, and Doctor Assistant.
-- **Medical Records**: Upload and manage medical files and test results.
-- **Charts & Analytics**: Visualize staff and patient statistics.
 
-## Technologies Used
-- **Frontend**: HTML, CSS, JavaScript, jQuery
-- **Backend**: PHP
-- **Database**: SQLite
-- **Libraries**: Chart.js, SweetAlert2, Font Awesome
+- Role-based login redirection for hospital staff.
+- Admin user and assistant management.
+- Patient registration, search, assignment, and archiving.
+- Laboratory test ordering and result upload.
+- Separate dashboards for clinical, reception, laboratory, and administration workflows.
+- SQLite databases for users, clinic records, laboratory orders, and archived patients.
+- Chart.js, jQuery, SweetAlert2, Font Awesome, and local browser assets.
 
-## Directory Structure
-- **admin/**: Admin dashboard, user management, and analytics
-- **bridge/**: Backend PHP endpoints for all roles
-- **database/**: SQLite database files and database setup script
-- **js/**: JavaScript files for all user interfaces
-- **logo/**: Branding assets
-- **medical/**: Medical staff interface and file upload
-- **style/**: CSS files for all interfaces
-- **workspace/**: HTML files for each user role
+## Technology
 
-## Setup Instructions
-1. **Clone the repository**
-2. **Install Requirements**
-   - Ensure you have a web server with PHP and SQLite support (e.g., XAMPP, WAMP, or LAMP).
-3. **Database Initialization**
-   - The system will auto-create necessary tables on first run.
-   - If you want to manually create an admin user, use the Admin Panel or insert directly into `users.db`.
-4. **Set Default Admin User**
-   - The system allows login with the following credentials by default:
-     - **Username:** `admin`
-     - **Password:** `admin`
-   - This is hardcoded as a fallback in `bridge/login.php` and `bridge/cheker.php`.
-   - **Change the admin password after first login for security!**
-5. **Run the Application**
-   - Place the project files in your web server's root directory.
-   - Access the site via your browser (e.g., `http://localhost/Atom/index.html`).
+- Frontend: HTML, CSS, vanilla JavaScript, and jQuery.
+- Backend: PHP endpoints served by Apache or another PHP-capable web server.
+- Persistence: SQLite3.
+- No package manager or unified build system is present.
 
-## User Roles & Interfaces
-- **Admin:** Full access to user and patient management, analytics, and archiving.
-- **Doctor:** View, manage, and archive their patients; order medical tests.
-- **Nurse:** View and manage all patients; order medical tests.
-- **Laboratory:** View test orders, upload results, and mark tests as finished.
-- **Receptionist:** Register new patients, update, search, and archive records.
-- **Doctor Assistant:** View and manage patients assigned to their doctor.
+## Local installation
 
-## Authentication
-- Token-based authentication. On login, a token is stored in `localStorage` and used for subsequent requests.
-- Role-based redirection after login.
+1. Install PHP with the SQLite3 extension and a web server such as XAMPP, WAMP, or LAMP.
+2. Clone or copy the repository into the server document root.
+3. Ensure the `database/` directory and upload destinations are writable by the web-server process.
+4. Open `http://localhost/ATOM-Hospital/index.html`.
+5. Use disposable local accounts and sample data only.
 
-## Database Files
-- `users.db`: User accounts and doctor-assistant relationships
-- `clinic.db`: Patient records
-- `laboratory.db`: Medical test records
-- `archive.db`: Archived patient records
+The PHP endpoints create some tables when they first run, but the committed SQLite files are part of the project’s current data layout. Back them up before testing destructive operations.
 
-## Security Notes
-- The default admin credentials are for initial setup only. Change them immediately after first login.
-- All user passwords are stored in plaintext and hashed form for compatibility. Update to use only hashed passwords for production.
+## Repository layout
 
-## Contributing
-Contributions are welcome! Please submit a Pull Request.
+```text
+admin/       Administration UI, CRUD endpoints, and charts
+bridge/      PHP endpoints connecting browser workflows to SQLite
+database/    users, clinic, laboratory, and archive SQLite files
+js/          Role-specific browser logic
+logo/        Branding and favicon assets
+medical/     Medical records and upload endpoints
+style/       Stylesheets for workspaces
+workspace/   Role-specific HTML dashboards
+index.html   Login page and client-side redirect flow
+```
 
+## Roles
+
+The current routing maps Admin, Doctor, Doctor assistant, Nurse, Receptionist, and Laboratory users to different workspace pages. This is a UI convention, not a sufficient authorization boundary; every sensitive operation needs server-side identity and permission checks before production use.
+
+## Development
+
+Serve the repository through PHP rather than opening the HTML files directly, because the browser calls relative PHP endpoints. Manually test login, each role’s dashboard, patient assignment, archiving, laboratory ordering, upload validation, and admin CRUD actions. There is no automated test suite or lint configuration currently.
+
+See [docs/architecture.md](docs/architecture.md), [docs/api.md](docs/api.md), and [docs/database.md](docs/database.md) for implementation details.
+
+## Security
+
+Do not commit credentials, production SQLite databases, patient data, or uploaded medical files. Before deployment, replace plaintext passwords with one-way hashes, remove the hardcoded admin fallback, use secure server-side sessions, add CSRF and authorization controls, validate upload paths and file contents, and keep medical files outside the public web root. See [SECURITY.md](SECURITY.md).
+
+## Contributing and license
+
+Read [CONTRIBUTING.md](CONTRIBUTING.md) and [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md) before proposing changes. ATOM Hospital is released under the MIT License; see [LICENSE](LICENSE).
