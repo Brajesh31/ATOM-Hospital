@@ -63,4 +63,4 @@ Do not commit credentials, production SQLite databases, patient data, or uploade
 
 Read [CONTRIBUTING.md](CONTRIBUTING.md) and [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md) before proposing changes. ATOM Hospital is released under the MIT License; see [LICENSE](LICENSE).
 
-Last updated: 2026-10-17 22:07 UTC
+Last updated: 2026-10-18 00:46 UTC
