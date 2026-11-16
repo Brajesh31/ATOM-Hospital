@@ -1,8 +1,8 @@
 # 🗂️ Medical file lifecycle and upload risks
 
-## Current implementation path
+## Current implementation
 
-The medical page reads a path from its URL query and asks medical/medical.php to list files under that path. The upload browser code sends a caller-provided path to medical/upload.php. The PHP upload endpoint creates the requested directory and moves uploaded files there.
+The medical page reads a path from its URL query and asks medical/medical.php to list files under that path. The upload browser code sends a caller-provided path to medical/upload.php. That PHP endpoint creates the requested directory and moves uploaded files there.
 
 ~~~mermaid
 flowchart TD
@@ -19,26 +19,24 @@ flowchart TD
 
 ## Security issues
 
-- File path is supplied by the browser.
-- Directory creation is performed from the supplied value.
-- Directory listing is based on a supplied path.
-- Raw file names may become HTML in UI code.
+- File path comes from the browser.
+- Directory creation is based on that value.
+- Directory listing uses a supplied path.
+- Raw names may be inserted into HTML.
 - File access is not consistently tied to a server-verified user and patient.
-- Uploaded medical content may be placed in a web-accessible directory.
-- Upload response handling overwrites earlier per-file responses.
+- Uploads may be placed in a web-accessible directory.
+- The upload response array is overwritten instead of consistently accumulating per-file outcomes.
 
 ## Safer target design
 
-1. Browser sends an opaque patient/medical-record ID, not a directory path.
-2. Server authenticates user and checks role plus patient assignment.
+1. Browser sends an opaque patient/record ID, not a path.
+2. Server authenticates and checks role plus patient assignment.
 3. Server resolves the authorized record and fixed private storage root.
-4. Server validates upload error, file count, byte size, MIME via Fileinfo, and allowed extension/content pairing.
-5. Server uses random server-generated filenames.
-6. Server stores content outside public document root.
-7. Metadata records the original safe display name, storage key, MIME, size, uploader, timestamps and patient relation.
+4. Validate upload error, count, size, Fileinfo MIME and extension/content pairing.
+5. Use random server-generated filenames.
+6. Store content outside the public document root.
+7. Store metadata: safe display name, storage key, MIME, size, uploader, timestamp and record relation.
 8. Download endpoint repeats authorization checks and streams the file with safe headers.
-9. Access and changes are audited without logging medical content.
+9. Audit access without logging medical content.
 
-## Handling guidance
-
-Do not place real clinical files in this repository or its public assets. Use disposable synthetic files for development. A file extension or browser MIME value is not proof that a file is safe.
+Use synthetic documents only during development.
