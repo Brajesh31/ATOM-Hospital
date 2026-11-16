@@ -15,7 +15,7 @@ ATOM Hospital is a browser-based hospital-management prototype using HTML, CSS, 
 | Receptionist | workspace/receptionist.html | Register, search, update, delete and archive patients |
 | Laboratory | workspace/laboratory.html | View test orders, upload results, finish work |
 
-Role labels and workflow descriptions are derived from the checked-in page and PHP handler names. They do not imply secure access enforcement.
+Role labels and workflow descriptions are derived from checked-in pages and PHP handler names. They do not imply secure access enforcement.
 
 ## Technology
 
@@ -25,7 +25,7 @@ Role labels and workflow descriptions are derived from the checked-in page and P
 - Browser libraries: jQuery, SweetAlert2, Chart.js, Font Awesome and related CDN assets.
 - Filesystem: branding images and medical upload destinations.
 
-There is no Composer package manifest, Node package manifest, single build pipeline, or framework entrypoint in the inspected repository.
+There is no Composer package manifest, Node package manifest, unified build pipeline, or framework entrypoint in the inspected repository.
 
 ## Current capabilities
 
@@ -33,11 +33,11 @@ The code contains workflows for user administration, role-based page routing, pa
 
 ## Important boundary
 
-This is a prototype and must not be used with real patient or staff data. It has plaintext-password paths, an insecure hardcoded admin fallback, a client-controlled localStorage token, missing server-side role checks on multiple handlers, unsafe caller-selected file paths, and output escaping gaps. See security-review.md.
+This is a prototype and must not be used with real patient or staff data. It has plaintext-password paths, an insecure hardcoded admin fallback, a client-controlled localStorage token, missing server-side role checks on multiple handlers, unsafe caller-selected file paths, and output escaping gaps. See [security-review.md](./security-review.md).
 
-## Intended users
+## Intended audience
 
-The repository is suitable for developers studying a PHP/SQLite workflow prototype, students exploring role-based dashboard structure, and contributors improving the security and maintainability of a small legacy application.
+Developers studying a PHP/SQLite workflow prototype, students exploring role-based dashboard structure, and contributors improving the security and maintainability of a small legacy application.
 
 ## Out of scope
 
