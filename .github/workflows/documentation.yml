@@ -1,0 +1,49 @@
+name: Documentation and repository checks
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  markdown:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate Markdown links, images and fenced code
+        shell: bash
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import re
+          import sys
+
+          errors = []
+          md_files = [p for p in Path('.').rglob('*.md') if '.git' not in p.parts]
+          for path in md_files:
+              content = path.read_text(encoding='utf-8')
+              if not content.strip():
+                  errors.append(f'{path}: empty Markdown file')
+              refs = re.findall(r'!\[[^\]]*\]\(([^)]+)\)', content)
+              refs += re.findall(r'<img\b[^>]*\bsrc=["\']([^"\']+)', content, re.I)
+              links = re.findall(r'(?<!!)\[[^\]]+\]\(([^)]+)\)', content)
+              for ref in refs + links:
+                  if ref.startswith(('https://', 'http://', 'mailto:', '#')):
+                      continue
+                  ref = ref.split('#', 1)[0]
+                  if ref and not (path.parent / ref).resolve().exists():
+                      errors.append(f'{path}: missing local reference {ref}')
+              fences = re.findall(r'^(`{3,}|~{3,})', content, re.M)
+              if len(fences) % 2:
+                  errors.append(f'{path}: unbalanced fenced code blocks')
+          if errors:
+              print('\n'.join(errors))
+              sys.exit(1)
+          print(f'Validated {len(md_files)} Markdown files.')
+          PY
+      - name: Check documentation entrypoints
+        run: test -f README.md && test -f docs/README.md && test -f docs/security-review.md
