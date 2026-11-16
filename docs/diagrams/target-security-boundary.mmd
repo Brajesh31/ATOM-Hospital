@@ -1,0 +1,14 @@
+flowchart TD
+  Request[Browser request] --> Session[Validate server-side session]
+  Session --> Authenticated{Authenticated?}
+  Authenticated -->|No| Deny401[Return 401]
+  Authenticated -->|Yes| Role[Check required role]
+  Role --> Allowed{Role allowed?}
+  Allowed -->|No| Deny403[Return 403]
+  Allowed -->|Yes| CSRF[Validate CSRF token for state change]
+  CSRF --> Resource[Load resource using server-derived identity]
+  Resource --> Ownership{User authorized for record?}
+  Ownership -->|No| Deny403
+  Ownership -->|Yes| Operation[Perform validated operation]
+  Operation --> Audit[Write sanitized audit event]
+  Audit --> Response[Return minimal response]
