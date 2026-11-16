@@ -1,0 +1,8 @@
+flowchart TD
+  Browser["HTML / CSS / JavaScript"] -->|POST| PHP["PHP bridge endpoints"]
+  PHP --> Users["users.db"]
+  PHP --> Clinic["clinic.db"]
+  PHP --> Lab["laboratory.db"]
+  PHP --> Archive["archive.db"]
+  PHP --> Files["Medical filesystem"]
+  PHP -->|JSON / text| Browser
