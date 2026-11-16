@@ -1,0 +1,9 @@
+flowchart TD
+  UI[Medical page] --> Query[Read path from URL query]
+  Query --> List[POST dir to medical.php]
+  List --> Scan[scandir supplied directory]
+  Scan --> Names[Return filenames]
+  UI --> Select[Select file]
+  Select --> Upload[POST file and path to upload.php]
+  Upload --> Check[Extension, MIME and size checks]
+  Check --> Store[Write file to supplied target directory]
