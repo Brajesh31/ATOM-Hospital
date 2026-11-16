@@ -1,0 +1,13 @@
+flowchart TD
+  A[Restrict access and use synthetic data] --> B[Remove hardcoded login bypass]
+  B --> C[Server-side sessions and role checks]
+  C --> D[Hash-only passwords and reset workflow]
+  D --> E[CSRF protection]
+  E --> F[Private file storage and safe downloads]
+  F --> G[Output escaping and input validation]
+  G --> H[Authorization and upload regression tests]
+  H --> I[Backup, recovery and audit review]
+  I --> J[Independent security/privacy/clinical assessment]
+  J --> K{Approved for intended use?}
+  K -->|No| A
+  K -->|Yes| L[Controlled release]
