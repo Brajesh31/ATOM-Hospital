@@ -1,17 +1,43 @@
-# Contributing to ATOM Hospital
+# 🤝 Contributing to ATOM Hospital
 
-Contributions are welcome, but this project handles simulated health information and should be treated as privacy-sensitive.
+Thank you for considering a contribution. ATOM Hospital is an educational PHP/JavaScript/SQLite prototype. Contributions should improve correctness, clarity, privacy, and security without overstating the system's clinical readiness.
 
-## Workflow
+## Safety first
 
-1. Create a focused branch from `main`.
-2. Run the application through PHP and use disposable SQLite data.
-3. Keep changes scoped to one workflow or documentation topic.
-4. Test affected roles, endpoints, validation, and error paths manually.
-5. Update documentation when routes, schemas, uploads, or setup change.
+- Do not use real patient/staff data in local development, fixtures, screenshots, issues, or pull requests.
+- Do not commit live SQLite databases, backups, medical documents, credentials, tokens, or deployment secrets.
+- Do not treat localStorage values or client-side page routing as authorization.
+- Do not add a workflow feature that bypasses server-side permission checks.
+- Security defects affecting authentication, authorization, and patient data take priority over cosmetic work.
 
-Never commit patient data, credentials, generated uploads, or production database files. Do not add a security control that is only enforced in JavaScript; sensitive operations must be checked by PHP.
+## Local setup
+
+See [docs/installation.md](docs/installation.md). Use a local PHP server and disposable SQLite data.
+
+## Coding expectations
+
+- Keep SQL parameterized.
+- Validate all inputs server-side.
+- Derive identity and role from a trusted server-side session.
+- Check authorization for every record access and mutation.
+- Use CSRF defenses on state-changing requests.
+- Use textContent/DOM APIs for untrusted display values.
+- Keep medical uploads outside the public document root.
+- Return sanitized errors and avoid leaking SQL, paths, credentials, or patient data.
+- Maintain PHP and JavaScript syntax checks.
+
+## Tests
+
+Include reproducible checks using synthetic data. Security-sensitive changes need tests for missing sessions, incorrect roles, cross-user record access, CSRF, unsafe paths, invalid uploads, and HTML injection. Syntax-only CI is not sufficient evidence of security.
+
+## Documentation
+
+Update the README, relevant endpoint contracts, architecture diagrams, security review, migration notes, and CHANGELOG when behavior changes.
 
 ## Pull requests
 
-Describe the affected role and endpoint, database impact, manual verification performed, and any migration or privacy considerations. Report suspected vulnerabilities privately using [SECURITY.md](SECURITY.md).
+Use the pull request template. Explain the affected roles, endpoints, databases, data fields, migration/rollback plan, privacy impact, tests run, and remaining risks.
+
+## Reporting security issues
+
+Follow [SECURITY.md](SECURITY.md). Do not publish exploit details or patient information in a public issue.
