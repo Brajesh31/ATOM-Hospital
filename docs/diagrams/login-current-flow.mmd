@@ -1,0 +1,12 @@
+sequenceDiagram
+  participant U as User
+  participant B as Browser
+  participant L as bridge/login.php
+  participant DB as users.db
+  U->>B: Submit credentials
+  B->>L: POST name/password
+  L->>DB: Query account record
+  DB-->>L: Password fields and role
+  L-->>B: Password-derived response fields
+  Note over B: Current implementation stores response in localStorage
+  B->>U: Redirect to workspace
